@@ -1,18 +1,21 @@
-package com.andreilorin.springbootintro.main;
+package com.andreilorin.springbootintro.topic;
 
-public class Client {
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
+public class Topic {
+
+	@Id
 	private int id;
 	private String name;
 	private double credits;
 	
-	public Client() {
-		id = 0;
-		name = "testname";
-		credits = 100.00;
+	public Topic() {
+		
 	}
 	
-	public Client(int id, String name, double credits) {
+	public Topic(int id, String name, double credits) {
 		this.id = id;
 		this.name = name;
 		this.credits = credits;
@@ -41,9 +44,5 @@ public class Client {
 	public void setCredits(double credits) {
 		this.credits = credits;
 	}
-	
-	
-	
-	
 	
 }
