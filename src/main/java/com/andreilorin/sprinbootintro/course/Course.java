@@ -3,6 +3,9 @@ package com.andreilorin.sprinbootintro.course;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.andreilorin.springbootintro.topic.Topic;
 
@@ -10,8 +13,14 @@ import com.andreilorin.springbootintro.topic.Topic;
 public class Course {
 
 	@Id
+	@NotNull(message = "ID cannot be empty")
 	private int id;
+	
+	@NotNull(message = "Name cannot be empty")
+	@Size(min = 2, max = 10, message = "Name must have 2 to 10 characters")
 	private String name;
+	
+	@Min(value = 5, message = "Has to have at least 5 credits")
 	private double credits;
 	
 	@ManyToOne

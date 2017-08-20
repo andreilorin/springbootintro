@@ -1,4 +1,4 @@
-package com.andreilorin.springbootintro.main;
+package com.andreilorin.sprinbootintro.course;
 
 import java.util.List;
 
@@ -9,35 +9,39 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.andreilorin.springbootintro.topic.Topic;
+
 @RestController
-public class ClientController {
+public class CourseController {
 	
 	@Autowired
-	private ClientService clientService;
+	private CourseService courseService;
 	
-	@RequestMapping("/clients")
-	public List<Client> getAllClients() {
-		return clientService.getAllClients();
+	@RequestMapping("/topics/{id}/courses")
+	public List<Course> getAllCourses(@PathVariable int id) {
+		return courseService.getAllCourses(id);
 	}
 	
-	@RequestMapping("/clients/{id}")
-	public Client getClient(@PathVariable int id) {
-		return clientService.getClient(id);
+	@RequestMapping("/topics/{topicId}/courses/{id}")
+	public Course getCourse(@PathVariable int id) {
+		return courseService.getCourse(id);
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, value="/clients")
-	public void addClient(@RequestBody Client client) {
-		clientService.addClient(client);
+	@RequestMapping(method=RequestMethod.POST, value="/topics/{topicId}/courses")
+	public void addCourse(@RequestBody Course course, @PathVariable int topicId) {
+		course.setTopic(new Topic(topicId, "", 5.00));
+		courseService.addCourse(course);
 	}
 	
-	@RequestMapping(method=RequestMethod.PUT, value="/clients/{id}")
-	public void updateClient(@RequestBody Client client, @PathVariable int id) {
-		clientService.updateClient(id, client);
+	@RequestMapping(method=RequestMethod.PUT, value="/topics/{topicId}/courses/{id}")
+	public void updateCourse(@RequestBody Course course, @PathVariable int topicId) {
+		course.setTopic(new Topic(topicId, "", 5.00));
+		courseService.updateCourse(course);
 	}
 	
-	@RequestMapping(method=RequestMethod.DELETE, value="/clients/{id}")
-	public void deleteClient(@PathVariable int id) {
-		clientService.deleteClient(id);
+	@RequestMapping(method=RequestMethod.DELETE, value="/topics/{topicId}/courses/{id}")
+	public void deleteCourse(@PathVariable int id) {
+		courseService.deleteCourse(id);
 	}
 
 }
